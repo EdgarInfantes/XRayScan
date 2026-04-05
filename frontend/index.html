@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X-RAY SENTINEL | Security AI</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body class="min-h-screen font-sans">
+  <div class="min-h-screen">
+    <header class="text-white shadow-lg sticky top-0 z-50 app-header">
+      <div class="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="bg-white p-1.5 rounded-sm">
+            <i data-lucide="shield" class="w-6 h-6 icon-primary"></i>
+          </div>
+          <div class="h-6 w-px bg-white/20"></div>
+          <div>
+            <h1 class="text-lg font-bold tracking-tight">
+              X-RAY SENTINEL <span class="font-light opacity-80">| Security AI</span>
+            </h1>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <div class="hidden md:flex gap-4 text-[11px] font-bold uppercase tracking-wider">
+            <span class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full status-dot-success"></div>
+              Detector Ready
+            </span>
+            <span class="flex items-center gap-1.5 opacity-60">
+              <i data-lucide="settings" class="w-3 h-3"></i>
+              Config
+            </span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover:bg-white/20">
+            <span class="text-xs font-bold">JD</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-4 space-y-6">
+        <section class="bg-white rounded-lg shadow-sm border overflow-hidden section-border">
+          <div class="px-5 py-4 border-b flex items-center justify-between section-border-bottom">
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+              <i data-lucide="database" class="w-4 h-4 icon-primary"></i>
+              Fuente de Entrada
+            </h2>
+            <button id="resetBtn" class="text-slate-400 hover:text-red-600 transition-colors hidden">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="p-6">
+            <div class="flex rounded-md mb-6 overflow-hidden border section-border">
+              <button data-tab="upload" class="tab-btn flex-1 py-3 text-[10px] font-bold transition-all border-r text-white tab-active section-border-right">
+                UPLOAD
+              </button>
+              <button data-tab="youtube" class="tab-btn flex-1 py-3 text-[10px] font-bold transition-all border-r text-slate-400 hover:bg-slate-50 section-border-right">
+                YOUTUBE
+              </button>
+              <button data-tab="image" class="tab-btn flex-1 py-3 text-[10px] font-bold transition-all text-slate-400 hover:bg-slate-50">
+                IMAGE
+              </button>
+            </div>
+
+            <div id="dropZone" class="mb-6 h-48 flex flex-col justify-center border-2 border-dashed rounded-lg transition-colors p-4 group drop-zone">
+              <div id="uploadPanel" class="text-center">
+                <input type="file" id="fileInput" class="hidden" accept="image/*" />
+                <label for="fileInput" class="cursor-pointer">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 transition-transform group-hover:scale-110 upload-icon-bg">
+                    <i data-lucide="upload" class="w-6 h-6 icon-primary"></i>
+                  </div>
+                  <p id="fileLabel" class="text-sm font-semibold text-slate-700">Cargar Imagen de Rayos X</p>
+                  <p class="text-[10px] text-slate-400 mt-2">Formatos aceptados: JPG, PNG, JPEG</p>
+                </label>
+              </div>
+
+              <div id="youtubePanel" class="px-2 hidden">
+                <p class="text-xs font-bold text-slate-500 mb-2">URL del Recurso:</p>
+                <div class="relative">
+                  <i data-lucide="youtube" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                  <input
+                    type="text"
+                    id="youtubeInput"
+                    placeholder="https://youtube.com/..."
+                    class="w-full border rounded-md py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 transition-all input-border"
+                  />
+                </div>
+                <p class="text-[10px] text-slate-400 mt-3">Modo visual por ahora. No conectado al backend.</p>
+              </div>
+
+              <div id="imagePanel" class="text-center opacity-80 hidden">
+                <input type="file" id="fileInputImage" class="hidden" accept="image/*" />
+                <label for="fileInputImage" class="cursor-pointer">
+                  <i data-lucide="image" class="w-10 h-10 mx-auto mb-2 text-slate-300"></i>
+                  <p id="imageLabel" class="text-xs font-medium">Arrastre o seleccione una imagen individual</p>
+                </label>
+              </div>
+            </div>
+
+            <div class="space-y-5 mb-8">
+              <div>
+                <div class="flex justify-between mb-2 items-center">
+                  <span class="text-[10px] font-bold text-slate-500">PRECISIÓN DE DETECCIÓN</span>
+                  <span class="text-xs font-bold metric-primary">85%</span>
+                </div>
+                <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full transition-all progress-primary" style="width: 85%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              id="processBtn"
+              class="w-full py-4 rounded-md font-bold flex items-center justify-center gap-2 transition-all shadow-md text-white disabled:opacity-50 disabled:cursor-not-allowed btn-primary"
+            >
+              <i data-lucide="play" class="w-4 h-4"></i>
+              <span id="processBtnText">INICIAR PROCESAMIENTO</span>
+            </button>
+
+            <p id="errorText" class="mt-4 text-xs font-medium hidden text-danger"></p>
+          </div>
+        </section>
+
+        <div class="bg-white p-5 rounded-lg border shadow-sm section-border">
+          <div class="flex items-center gap-3 mb-4">
+            <i data-lucide="info" class="w-4 h-4 icon-primary"></i>
+            <span class="text-xs font-bold text-slate-700">ESTADO DEL SERVIDOR</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">Backend</p>
+              <p id="serverStatus" class="text-lg font-bold text-slate-700">Ready</p>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">Detecciones</p>
+              <p id="detectionCount" class="text-lg font-bold text-slate-700">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 space-y-6">
+        <section class="bg-white border rounded-lg overflow-hidden shadow-sm flex flex-col section-border">
+          <div class="bg-slate-50 px-5 py-3 border-b flex items-center justify-between section-border-bottom">
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 rounded-full animate-pulse status-dot-success"></div>
+              <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Monitor de Análisis en Tiempo Real</span>
+            </div>
+            <i data-lucide="maximize-2" class="w-4 h-4 text-slate-300 cursor-pointer hover:text-slate-500"></i>
+          </div>
+
+          <div class="aspect-video bg-slate-900 relative flex items-center justify-center overflow-hidden">
+            <div id="scanLine" class="absolute top-0 left-0 w-full h-1 scan-line z-20 animate-scan hidden"></div>
+
+            <div id="emptyState" class="text-center space-y-4 px-10">
+              <i data-lucide="search" class="w-12 h-12 text-slate-800 mx-auto"></i>
+              <p class="text-slate-500 text-sm font-medium">Seleccione un archivo para visualizar el resultado del análisis</p>
+            </div>
+
+            <div id="processingOverlay" class="absolute inset-0 flex-col items-center justify-center processing-overlay z-30 hidden">
+              <div class="w-64 text-center">
+                <p id="currentStep" class="text-[10px] font-mono text-blue-400 mb-3 tracking-widest uppercase">INICIALIZANDO...</p>
+                <div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div id="progressBar" class="h-full transition-all duration-500 progress-primary" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div id="imageResultWrapper" class="w-full h-full hidden monitor-result-bg p-4 flex items-center justify-center">
+              <img id="resultImage" alt="Resultado procesado" class="max-w-full max-h-full object-contain rounded shadow-2xl border border-white/10" />
+            </div>
+          </div>
+
+          <div class="px-5 py-3 flex items-center justify-between bg-slate-50 section-top-border">
+            <div class="flex gap-6">
+              <div class="flex flex-col">
+                <span class="text-[9px] font-bold text-slate-400 uppercase">Input</span>
+                <span id="inputType" class="text-xs font-bold text-slate-700">UPLOAD</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[9px] font-bold text-slate-400 uppercase">Model</span>
+                <span class="text-xs font-bold text-slate-700">YOLO_HYBRID_V2</span>
+              </div>
+            </div>
+            <button class="flex items-center gap-2 text-[10px] font-bold text-slate-500 hover:text-slate-800 transition-colors">
+              VER LOGS DE SISTEMA
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </button>
+          </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <section class="bg-white border rounded-lg shadow-sm overflow-hidden flex flex-col h-[320px] section-border">
+            <div class="px-5 py-3 border-b bg-slate-50 flex items-center gap-2 section-border-bottom">
+              <i data-lucide="bar-chart-3" class="w-4 h-4 text-slate-400"></i>
+              <h3 class="text-xs font-bold text-slate-600 uppercase">Registro de Detecciones</h3>
+            </div>
+
+            <div class="overflow-y-auto flex-1">
+              <table class="w-full text-left">
+                <thead class="bg-slate-50 sticky top-0 border-b section-border-bottom">
+                  <tr class="text-[9px] font-bold text-slate-400 uppercase">
+                    <th class="px-5 py-3">#</th>
+                    <th class="px-5 py-3">Objeto</th>
+                    <th class="px-5 py-3">Conf.</th>
+                    <th class="px-5 py-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="detectionsTableBody" class="divide-y section-divide">
+                  <tr>
+                    <td colspan="4" class="px-5 py-10 text-center text-xs text-slate-400 italic">
+                      No se han generado registros en la sesión actual
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="bg-white border rounded-lg shadow-sm overflow-hidden flex flex-col h-[320px] section-border">
+            <div class="px-5 py-3 border-b bg-slate-50 flex items-center gap-2 section-border-bottom">
+              <i data-lucide="check-circle" class="w-4 h-4 text-slate-400"></i>
+              <h3 class="text-xs font-bold text-slate-600 uppercase">Veredicto de Seguridad</h3>
+            </div>
+
+            <div id="verdictContainer" class="p-8 flex flex-col items-center justify-center h-full text-center">
+              <div class="space-y-4">
+                <i data-lucide="shield" class="w-12 h-12 text-slate-100 mx-auto"></i>
+                <p class="text-xs text-slate-400">Esperando finalización de analítica</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mt-12 py-8 bg-white border-t section-border-top">
+      <div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">© 2024 Corporate Security Solutions | AI Hybrid Systems</p>
+        <div class="flex gap-6 items-center">
+          <span class="text-[10px] font-bold text-slate-500 flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full status-dot-success"></div>
+            PIPELINE: ONLINE
+          </span>
+          <span class="text-[10px] font-bold text-slate-500 flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full status-dot-primary"></div>
+            CLOUD_SYNC: ACTIVE
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>

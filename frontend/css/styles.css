@@ -1,0 +1,128 @@
+:root {
+  --primary: #004481;
+  --dark: #001391;
+  --lightBlue: #043263;
+  --activeBg: #eff6ff;
+  --slate50: #f8fafc;
+  --slate200: #e2e8f0;
+  --slate400: #94a3b8;
+  --success: #2DCC70;
+  --danger: #DA1710;
+  --warningBg: #FFFBEB;
+  --warningBorder: #F59E0B;
+  --warningText: #92400E;
+}
+
+body {
+  background: var(--slate50);
+}
+
+.app-header {
+  background-color: var(--primary);
+}
+
+.icon-primary,
+.metric-primary {
+  color: var(--primary);
+}
+
+.status-dot-success {
+  background-color: var(--success);
+}
+
+.status-dot-primary {
+  background-color: var(--primary);
+}
+
+.section-border {
+  border-color: var(--slate200);
+}
+
+.section-border-bottom {
+  border-color: var(--slate200);
+}
+
+.section-border-top {
+  border-color: var(--slate200);
+}
+
+.section-border-right {
+  border-color: var(--slate200);
+}
+
+.section-top-border {
+  border-top: 1px solid var(--slate200);
+}
+
+.section-divide {
+  border-color: var(--slate200);
+}
+
+.drop-zone {
+  background-color: var(--slate50);
+  border-color: var(--slate200);
+}
+
+.upload-icon-bg {
+  background-color: var(--activeBg);
+}
+
+.input-border {
+  border-color: var(--slate200);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+}
+
+.progress-primary {
+  background-color: var(--primary);
+}
+
+.tab-active {
+  background-color: var(--primary);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.scan-line {
+  background: rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+}
+
+.processing-overlay {
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.monitor-result-bg {
+  background: var(--lightBlue);
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00448133;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00448166;
+}

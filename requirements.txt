@@ -1,0 +1,10 @@
+ultralytics
+opencv-python
+joblib
+numpy
+torch
+timm
+pillow
+requests
+scikit-learn
+python-multipart
