@@ -29,10 +29,10 @@ Esta aplicación web permite detectar y clasificar objetos peligrosos en imágen
    - `models/classifier/LogReg_tuned.joblib` (Clasificador)
    - `models/class_names.joblib` (Nombres de clases)
 
-## Ejecución
+## Activar Backend
 
 ```bash
-streamlit run app.py
+uvicorn backend.app.main:app --reload
 ```
 
 La aplicación se abrirá en tu navegador en `http://localhost:8501`

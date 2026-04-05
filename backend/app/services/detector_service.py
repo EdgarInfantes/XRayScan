@@ -5,8 +5,8 @@ import uuid
 
 import cv2
 
-from app.core.config import settings
-from app.ml.pipeline import HybridXRayDetector
+from backend.app.core.config import settings
+from backend.app.ml.pipeline import HybridXRayDetector
 
 
 class DetectorService:

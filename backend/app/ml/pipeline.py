@@ -6,9 +6,9 @@ import numpy as np
 import torch
 from PIL import Image
 
-from app.ml.class_mapping import ClassNameResolver
-from app.ml.image_processor import ImageAnnotator, ImageLoader
-from app.ml.model_loader import ModelLoader
+from backend.app.ml.class_mapping import ClassNameResolver
+from backend.app.ml.image_processor import ImageAnnotator, ImageLoader
+from backend.app.ml.model_loader import ModelLoader
 
 
 class HybridXRayDetector:

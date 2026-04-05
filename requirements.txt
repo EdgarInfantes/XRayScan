@@ -8,3 +8,5 @@ pillow
 requests
 scikit-learn
 python-multipart
+uvicorn
+fastapi

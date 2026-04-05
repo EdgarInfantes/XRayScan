@@ -6,7 +6,7 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.services.detector_service import detector_service
+from backend.app.services.detector_service import detector_service
 
 
 app = FastAPI(title="Hybrid X-Ray Detector API")
